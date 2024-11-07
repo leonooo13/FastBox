@@ -1,0 +1,55 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}页面标题{% endblock %}</title>
+
+    <!-- 引入 Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="/">我的网站</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                {% if not token %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">登录</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">注册</a>
+                </li>
+                {% else %}
+                <!-- 如果 token 存在，可以显示 "退出" 或其他内容 -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/manage_user">管理</a>
+                </li>
+                <li class="nav-item">
+                    <form action="/logout" method="post" id="logout-form">
+                        <button type="submit" class="nav-link" style="border: none; background: none;">退出</button>
+                    </form>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container mt-5">
+    {% block content %}{% endblock %}
+</div>
+
+<!-- 引入 Bootstrap 和 Popper.js 的 JS -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+        crossorigin="anonymous"></script>
+</body>
+</html>

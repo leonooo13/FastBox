@@ -1,33 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>登录</title>
-    <script>
-        function showError(message) {
-            alert(message);  // 使用弹窗显示错误信息
-        }
-    </script>
-</head>
-<body>
-    <h2>登录页面</h2>
-    <form action="/login" method="post">
-        <label for="username">用户名：</label>
-        <input type="text" id="username" name="username" required><br><br>
+{% extends "base.html" %}
 
-        <label for="password">密码：</label>
-        <input type="password" id="password" name="password" required><br><br>
+{% block title %}注册{% endblock %}
 
-        <button type="submit">登录</button>
-    </form>
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mt-5">注册页面</h2>
+            <!-- 注册表单 -->
+            <form action="/register" method="post" class="mt-4">
+                <div class="mb-3">
+                    <label for="username" class="form-label">用户名：</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">密码：</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">确认密码：</label>
+                    <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">注册</button>
+            </form>
 
-    {% if error_message %}
-        <script>
-            showError("{{ error_message }}");  // 如果有错误消息，弹出提示框
-        </script>
-    {% endif %}
+            <!-- 显示错误消息 -->
+            {% if error %}
+            <div class="alert alert-danger mt-3" role="alert">
+                {{ error }}
+            </div>
+            {% endif %}
 
-    <p>没有账户？<a href="/register">注册</a></p>
-</body>
-</html>
+            <p class="mt-3 text-center">已有账户？<a href="/login">登录</a></p>
+        </div>
+    </div>
+{% endblock %}

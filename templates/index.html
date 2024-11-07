@@ -1,20 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>首页</title>
-</head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="/">首页</a></li>
-            <li><a href="/login">登录</a></li>
-            <li><a href="/register">注册</a></li>
-        </ul>
-    </nav>
+{% extends "base.html" %}
 
-    <h2>欢迎来到首页！</h2>
-    <p>您已经登录成功。</p>
-</body>
-</html>
+{% block title %}首页{% endblock %}
+
+{% block content %}
+    <div class="text-center">
+        <h2>欢迎来到首页！</h2>
+        <p class="lead">您已经登录成功。{{username}}</p>
+    </div>
+{% endblock %}
