@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <script>
+        function showError(message) {
+            alert(message);  // 使用弹窗显示错误信息
+        }
+    </script>
+</head>
+<body>
+    <h2>登录页面</h2>
+    <form action="/login" method="post">
+        <label for="username">用户名：</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="password">密码：</label>
+        <input type="password" id="password" name="password" required><br><br>
+
+        <button type="submit">登录</button>
+    </form>
+
+    {% if error_message %}
+        <script>
+            showError("{{ error_message }}");  // 如果有错误消息，弹出提示框
+        </script>
+    {% endif %}
+
+    <p>没有账户？<a href="/register">注册</a></p>
+</body>
+</html>
