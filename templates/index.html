@@ -1,10 +1,86 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>项目介绍 - My Project</title>
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Font Awesome 图标库 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- 引入 Alpine.js -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
+</head>
+<body class="dark bg-gray-900 text-white">
 
-{% block title %}首页{% endblock %}
+    <!-- 导航栏 -->
+    <nav class="bg-gray-800 p-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="text-2xl font-semibold text-white">My Project</div>
+            <div>
+                <a href="#home" class="text-gray-300 hover:text-white px-4 py-2">首页</a>
+                <a href="#about" class="text-gray-300 hover:text-white px-4 py-2">项目介绍</a>
+                <a href="#features" class="text-gray-300 hover:text-white px-4 py-2">功能</a>
+                <a href="/register" class="text-gray-300 hover:text-white px-4 py-2">注册</a>
+                <a href="/login" class="text-gray-300 hover:text-white px-4 py-2">登录</a>
+            </div>
+        </div>
+    </nav>
 
-{% block content %}
-    <div class="text-center">
-        <h2>欢迎来到首页！</h2>
-        <p class="lead">您已经登录成功。{{username}}</p>
-    </div>
-{% endblock %}
+    <!-- 项目介绍部分 -->
+    <section id="about" class="py-16 px-4 bg-gray-800">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-white">关于我们的项目</h2>
+            <p class="text-lg text-gray-300 mt-4">这是一个创新的项目，旨在解决现代社会中的某些问题，提升效率并带来更好的体验。</p>
+        </div>
+    </section>
+
+    <!-- 功能展示部分 -->
+    <section id="features" class="py-16 px-4 bg-gray-700">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-white">项目功能</h2>
+            <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
+                <!-- 功能项 1 -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <div class="text-xl font-semibold text-blue-500 mb-4">
+                        <i class="fas fa-cogs"></i> 自动化功能
+                    </div>
+                    <p class="text-gray-300">本项目支持全自动化流程，极大提高效率。</p>
+                </div>
+                <!-- 功能项 2 -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <div class="text-xl font-semibold text-blue-500 mb-4">
+                        <i class="fas fa-users"></i> 团队协作
+                    </div>
+                    <p class="text-gray-300">支持多人协作功能，让团队工作更加高效。</p>
+                </div>
+                <!-- 功能项 3 -->
+                <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <div class="text-xl font-semibold text-blue-500 mb-4">
+                        <i class="fas fa-lock"></i> 高级安全性
+                    </div>
+                    <p class="text-gray-300">采用最新的安全技术，保护用户数据和隐私。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们部分 -->
+    <section id="contact" class="py-16 px-4 bg-gray-800">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-3xl font-bold text-white">联系我们</h2>
+            <p class="text-lg text-gray-300 mt-4">如果你有任何问题，或者想了解更多信息，请通过以下方式联系我们：</p>
+            <div class="mt-8">
+                <p class="text-lg text-gray-300">Email: <a href="mailto:contact@example.com" class="text-blue-400">contact@example.com</a></p>
+                <p class="text-lg text-gray-300 mt-2">Phone: <a href="tel:+123456789" class="text-blue-400">+1 (234) 567-890</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 底部 -->
+    <footer class="bg-gray-800 text-center py-4">
+        <p class="text-gray-400">&copy; 2024 My Project. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

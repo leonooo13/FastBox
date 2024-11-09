@@ -1,10 +1,8 @@
 from datetime import timedelta
-
 from fastapi import FastAPI, Request, Form, HTTPException, Depends, Response
 from fastapi import APIRouter
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse, HTMLResponse
-
 from app.core.config import settings
 from app.routes.deps import SessionDep, get_user_register, CurrentUser, get_current_user
 from app.core import crud, security
@@ -73,18 +71,17 @@ async def login(request: Request, session: SessionDep, username: str = Form(...)
         )
         return response
     except Exception as e:
-        print(e)
         return templates.TemplateResponse(request=request, name="login.html", context={"error_message": e})
 
 
 @router.post("/logout")
 def logout(request: Request, response: Response, current_user: CurrentUser):
-    # 清除存储在 cookie 中的 'token'
     if current_user:
-        response.headers['Location'] = '/'  # 指定重定向的 URL
-        response.status_code = 303  # 设置 HTTP 状态码为 303, 表示重定向
+        # 清除存储在 cookie 中的 'token'
         response.delete_cookie('token')
-        return response
+        # 设置重定向
+        return RedirectResponse(url="/", status_code=303)
+    return RedirectResponse(url="/", status_code=303)
 
 
 @router.post("/delete_user/{user_id}")
@@ -118,3 +115,9 @@ def update_user(user_id: int, current_user: CurrentUser, session: SessionDep,
     user = crud.get_user(session, user_id=user_id)
     crud.update_user(session, user_id=user_id, name=name, email=email)
     return RedirectResponse(url="/manage_user", status_code=303)
+@router.get("/me")
+def get_me(request: Request, session: SessionDep, current_user: CurrentUser):
+    if not current_user:
+        return RedirectResponse(url="/", status_code=303)
+    current_user = crud.get_user(session, user_id=current_user.id)
+    return templates.TemplateResponse(request=request, name="me.html", context={"user": current_user})

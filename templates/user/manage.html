@@ -1,42 +1,42 @@
-{% extends "base.html" %}
+{% extends "manage_bar.html" %}
 
 {% block title %}用户列表{% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h2 class="text-center mt-5">所有用户</h2>
+<div class="container mx-auto px-4 py-6 bg-gray-900 text-white">
+    <h2 class="text-3xl font-bold text-center mb-6">所有用户</h2>
 
-        <table class="table table-bordered mt-4">
-            <thead>
-                <tr>
-                    <th>用户名</th>
-                    <th>邮箱</th>
-                    <th>注册时间</th>
-                    <th>操作</th> <!-- 新增操作列 -->
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in users %}
-                    <tr>
-                        <td>{{ user.id }}</td>
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.email }}</td>
-                        <td>
-                            <!-- 删除按钮 -->
-                            <form action="{{ url_for('delete_user', user_id=user.id) }}" method="post" style="display:inline;">
-                                <button type="submit" class="btn btn-danger">删除</button>
-                            </form>
-                            <!-- 修改按钮 -->
-                            <a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn btn-warning">修改</a>
-                        </td>
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="4" class="text-center">没有用户</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <table class="min-w-full table-auto border-collapse bg-gray-800 text-white rounded-lg shadow-lg">
+        <thead class="bg-gray-700">
+            <tr>
+                <th class="px-4 py-2 text-left">用户名</th>
+                <th class="px-4 py-2 text-left">邮箱</th>
+                <th class="px-4 py-2 text-left">注册时间</th>
+                <th class="px-4 py-2 text-left">操作</th> <!-- 新增操作列 -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr class="hover:bg-gray-700">
+                <td class="px-4 py-2">{{ user.id }}</td>
+                <td class="px-4 py-2">{{ user.name }}</td>
+                <td class="px-4 py-2">{{ user.email }}</td>
+                <td class="px-4 py-2">
+                    <!-- 删除按钮 -->
+                    <form action="{{ url_for('delete_user', user_id=user.id) }}" method="post" class="inline-block">
+                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">删除</button>
+                    </form>
+                    <!-- 修改按钮 -->
+                    <a href="{{ url_for('edit_user', user_id=user.id) }}" class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 ml-2">修改</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" class="text-center px-4 py-2">没有用户</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-    </div>
+</div>
 {% endblock %}

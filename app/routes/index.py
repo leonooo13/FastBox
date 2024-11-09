@@ -10,9 +10,12 @@ router = APIRouter()
 
 
 @router.get("/")
-def index(request: Request, session: SessionDep, current_user: CurrentUser):
+def index(request: Request, current_user: CurrentUser):
     if current_user:
         username = current_user.name
-        return templates.TemplateResponse(request=request, name="index.html",
-                                          context={"username": username, "token": 1})
-    return RedirectResponse("/login")
+        return templates.TemplateResponse(request=request, name="user/manage_bar.html", context={"user": username})
+    return templates.TemplateResponse(request=request, name="index.html")
+
+@router.get("/test")
+def index(request: Request):
+    return templates.TemplateResponse(request=request, name="test.html")
