@@ -35,7 +35,35 @@ def authenticate(session: Session, username: str, password: str) -> User | None:
     else:
         return None
 
+
 def get_all_users(session: Session) -> list[User]:
     statement = select(User)
     users = session.exec(statement).all()  # 获取所有用户
     return list(users)
+
+
+def get_user(session: Session, user_id: int) -> User:
+    statement = select(User).where((User.id == user_id))
+    user = session.exec(statement).first()
+    return user
+
+
+def delete_user(session: Session, user_id: int) -> None:
+    statement = select(User).where((User.id == user_id))
+    user = session.exec(statement).first()
+    if user:
+        session.delete(user)
+        session.commit()
+        session.refresh(user)
+
+
+def update_user(session: Session, user_id: int, name: str, email: str) -> User | None:
+    statement = select(User).where((User.id == user_id))
+    db_user = session.exec(statement).first()
+    if not db_user:
+        return None
+    db_user.name = name
+    db_user.email = email
+    session.commit()
+    session.refresh(db_user)
+    return db_user

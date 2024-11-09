@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}项目管理{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-5" style="font-family: 'Helvetica Neue', sans-serif;">项目管理</h2>
+
+    <!-- 显示项目列表 -->
+    <div class="mb-4">
+        <a href="/add_project" class="btn btn-success" style="border-radius: 30px; font-size: 16px;">添加新项目</a>
+    </div>
+
+    <div class="row">
+        {% for project in projects %}
+        <div class="col-md-4 mb-4">
+            <div class="card" style="border-radius: 12px; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-family: 'Helvetica Neue', sans-serif;">{{ project.name }}</h5>
+                    <p class="card-text" style="font-size: 14px; color: #666;">{{ project.description }}</p>
+                    <p class="card-text">
+                        <strong>截止日期:</strong> {{ project.deadline }}
+                    </p>
+                    <p class="card-text">
+                        <strong>状态:</strong> {{ project.status }}
+                    </p>
+
+                    <!-- 操作按钮 -->
+                    <div class="d-flex justify-content-between">
+                        <a href="/edit_project/{{ project.id }}" class="btn btn-primary btn-sm" style="border-radius: 20px;">编辑</a>
+                        <form action="/delete_project/{{ project.id }}" method="post">
+                            <button type="submit" class="btn btn-danger btn-sm" style="border-radius: 20px;">删除</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

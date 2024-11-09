@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}添加项目{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mb-5" style="font-family: 'Helvetica Neue', sans-serif;">添加新项目</h2>
+
+    <form action="/add_project" method="post" enctype="multipart/form-data">
+        <!-- 项目名称 -->
+        <div class="form-group mb-4">
+            <label for="name" class="form-label">项目名称</label>
+            <input type="text" id="name" name="name" class="form-control" required placeholder="请输入项目名称" style="border-radius: 12px; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);">
+        </div>
+
+        <!-- 项目描述 -->
+        <div class="form-group mb-4">
+            <label for="description" class="form-label">项目描述</label>
+            <textarea id="description" name="description" class="form-control" required placeholder="请输入项目描述" style="border-radius: 12px; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);"></textarea>
+        </div>
+
+        <!-- 截止日期 -->
+        <div class="form-group mb-4">
+            <label for="deadline" class="form-label">截止日期</label>
+            <input type="date" id="deadline" name="deadline" class="form-control" required style="border-radius: 12px; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);">
+        </div>
+
+        <!-- 项目状态 -->
+        <div class="form-group mb-4">
+            <label for="status" class="form-label">项目状态</label>
+            <select id="status" name="status" class="form-control" required style="border-radius: 12px; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);">
+                <option value="pending">待定</option>
+                <option value="in_progress">进行中</option>
+                <option value="completed">已完成</option>
+            </select>
+        </div>
+
+        <!-- 文件上传 -->
+        <div class="form-group mb-4">
+            <label for="file" class="form-label">上传文件</label>
+            <input type="file" id="file" name="file" class="form-control" style="border-radius: 12px; box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);">
+        </div>
+
+        <!-- 提交按钮 -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary mt-3 px-5 py-2" style="border-radius: 30px; background-color: #007bff; border: none; font-size: 16px;">添加项目</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

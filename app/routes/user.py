@@ -6,12 +6,13 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse, HTMLResponse
 
 from app.core.config import settings
-from app.routes.deps import SessionDep, get_user_register, CurrentUser
+from app.routes.deps import SessionDep, get_user_register, CurrentUser, get_current_user
 from app.core import crud, security
 from app.schemas.user import UserRegister, Token
 
 # 设置模板目录
-templates = Jinja2Templates(directory="templates/user")
+
+templates = Jinja2Templates('templates/user')
 
 # 创建路由器
 router = APIRouter()
@@ -22,7 +23,7 @@ router = APIRouter()
 async def user_page(request: Request, session: SessionDep, current_user: CurrentUser):
     if current_user:
         users = crud.get_all_users(session)
-        return templates.TemplateResponse("user.html", {"request": request, "users": users, "token":1})
+        return templates.TemplateResponse("manage.html", {"request": request, "users": users, "token": 1})
     return RedirectResponse("/")
 
 
@@ -83,5 +84,37 @@ def logout(request: Request, response: Response, current_user: CurrentUser):
         response.headers['Location'] = '/'  # 指定重定向的 URL
         response.status_code = 303  # 设置 HTTP 状态码为 303, 表示重定向
         response.delete_cookie('token')
-        # return RedirectResponse(url="/", status_code=303)
         return response
+
+
+@router.post("/delete_user/{user_id}")
+async def delete_user(request: Request, user_id: int, session: SessionDep, current_user: CurrentUser):
+    # 调用你的 CRUD 函数删除用户
+    if not current_user:
+        return RedirectResponse(url="/", status_code=303)
+    user = crud.get_user(session, user_id=user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    crud.delete_user(session, user_id=user_id)
+    return RedirectResponse(url="/users", status_code=303)
+
+
+@router.get("/edit_user/{user_id}", name="edit_user")
+async def edit_user(request: Request, user_id: int, session: SessionDep, current_user: CurrentUser):
+    if not current_user:
+        return RedirectResponse(url="/", status_code=303)
+    user = crud.get_user(session, user_id=user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    return templates.TemplateResponse(request=request, name="edit_user.html", context={"user": user})
+
+
+@router.post("/update_user/{user_id}", name="update_user")
+def update_user(user_id: int, current_user: CurrentUser, session: SessionDep,
+                name: str = Form(),
+                email: str = Form()):
+    if not current_user:
+        return RedirectResponse(url="/", status_code=303)
+    user = crud.get_user(session, user_id=user_id)
+    crud.update_user(session, user_id=user_id, name=name, email=email)
+    return RedirectResponse(url="/manage_user", status_code=303)

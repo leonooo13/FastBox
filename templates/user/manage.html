@@ -12,6 +12,7 @@
                     <th>用户名</th>
                     <th>邮箱</th>
                     <th>注册时间</th>
+                    <th>操作</th> <!-- 新增操作列 -->
                 </tr>
             </thead>
             <tbody>
@@ -20,13 +21,22 @@
                         <td>{{ user.id }}</td>
                         <td>{{ user.name }}</td>
                         <td>{{ user.email }}</td>
+                        <td>
+                            <!-- 删除按钮 -->
+                            <form action="{{ url_for('delete_user', user_id=user.id) }}" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">删除</button>
+                            </form>
+                            <!-- 修改按钮 -->
+                            <a href="{{ url_for('edit_user', user_id=user.id) }}" class="btn btn-warning">修改</a>
+                        </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="3" class="text-center">没有用户</td>
+                        <td colspan="4" class="text-center">没有用户</td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
+
     </div>
 {% endblock %}
