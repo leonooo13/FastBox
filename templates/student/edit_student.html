@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编辑学生</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50">
+
+    <header class="bg-blue-800 text-white shadow-md">
+        <div class="container mx-auto p-6">
+            <h1 class="text-4xl font-bold">编辑学生</h1>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-8 mt-8 bg-white rounded-lg shadow-lg flex-grow">
+        <form method="post" action="/edit_student/{{ student.id }}">
+            <div class="mb-4">
+                <label for="name" class="block text-xl font-medium text-gray-700">姓名</label>
+                <input type="text" id="name" name="name" value="{{ student.name }}" required class="mt-2 block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div class="mb-4">
+                <label for="age" class="block text-xl font-medium text-gray-700">年龄</label>
+                <input type="number" id="age" name="age" value="{{ student.age }}" required class="mt-2 block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <div class="mb-4">
+                <label for="grade" class="block text-xl font-medium text-gray-700">成绩</label>
+                <input type="text" id="grade" name="grade" value="{{ student.grade }}" required class="mt-2 block w-full px-4 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+
+            <button type="submit" class="bg-blue-800 text-white text-xl py-2 px-4 rounded-md hover:bg-blue-700">保存更改</button>
+        </form>
+    </main>
+
+    <footer class="bg-blue-800 text-white text-center py-4 mt-auto">
+        <p class="text-lg">&copy; 2024 学生管理系统 - 所有权保留</p>
+    </footer>
+
+</body>
+
+</html>

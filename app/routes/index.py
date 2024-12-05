@@ -8,7 +8,6 @@ from app.routes.deps import SessionDep, CurrentUser, get_current_user
 templates = Jinja2Templates(directory="templates")
 router = APIRouter()
 
-
 @router.get("/")
 def index(request: Request, current_user: CurrentUser):
     if current_user:

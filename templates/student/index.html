@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex flex-col min-h-screen bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-blue-800 text-white shadow-md">
+        <div class="container mx-auto p-6">
+            <h1 class="text-4xl font-bold">{{ title }}</h1>
+        </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="container mx-auto p-8 mt-8 bg-white rounded-lg shadow-lg flex-grow">
+        <h2 class="text-3xl font-semibold mb-6">学生列表</h2>
+
+        <!-- Table -->
+        <table class="w-full table-auto border-collapse">
+            <thead class="bg-blue-600 text-white text-lg">
+                <tr>
+                    <th class="py-3 px-4 border-b">姓名</th>
+                    <th class="py-3 px-4 border-b">年龄</th>
+                    <th class="py-3 px-4 border-b">成绩</th>
+                    <th class="py-3 px-4 border-b">操作</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-700">
+                {% for student in students %}
+                <tr class="hover:bg-gray-100">
+                    <td class="py-3 px-4 border-b">{{ student.name }}</td>
+                    <td class="py-3 px-4 border-b">{{ student.age }}</td>
+                    <td class="py-3 px-4 border-b">{{ student.grade }}</td>
+                    <td class="py-3 px-4 border-b">
+                        <!-- Edit Button -->
+                        <a href="/edit_student/{{ student.id }}" class="text-blue-600 hover:text-blue-800">编辑</a>
+                        <!-- Delete Button -->
+                        <a href="/delete_student/{{ student.id }}" class="text-red-600 hover:text-red-800 ml-4">删除</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Add Student Button -->
+        <div class="mt-6">
+            <a href="/add_student" class="bg-blue-800 text-white py-2 px-4 rounded-md hover:bg-blue-700">添加学生</a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-800 text-white text-center py-4 mt-auto">
+        <p class="text-lg">&copy; 2024 学生管理系统 - 所有权保留</p>
+    </footer>
+
+</body>
+
+</html>

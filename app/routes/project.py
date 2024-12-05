@@ -1,17 +1,8 @@
-from datetime import timedelta, date
-
 from fastapi import FastAPI, Request, Form, HTTPException, Depends, Response
 from fastapi import APIRouter
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import RedirectResponse, HTMLResponse
-from jinja2 import FileSystemLoader, Environment
-from sqlalchemy.sql.default_comparator import operator_lookup
-from sqlmodel import Session
-
-from app.core.config import settings
-from app.models.project import Project
 from app.routes.deps import SessionDep, get_user_register, CurrentUser, get_current_user
-from app.core import crud, security
 from app.schemas.project import ProjectCreate
 from app.core.project.crud import ProjectCrude
 
